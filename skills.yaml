@@ -1,0 +1,24 @@
+---
+- :id: 1
+  :name: describe a variable
+  :dependencies: 
+- :id: 2
+  :name: assign the value 5 to a varible named number_of_fish
+  :dependencies:
+  - 1
+- :id: 3
+  :name: use a variable
+  :dependencies:
+  - 2
+- :id: 4
+  :name: Add, subtract, multiply, and divide numbers
+- :id: 5
+  :name: Iterate over an array 
+- :id: 6
+  :name: Describe 
+  :dependencies:
+  - 2
+- :id: 7
+  :name: Write a ruby script that prints "Hello World"
+  :dependencies:
+  - 2
