@@ -23,7 +23,7 @@ class Skill
 
   include ActiveModel::Model
 
-  attr_accessor :id, :name, :dependencies
+  attr_accessor :id, :name, :dependency_skill_ids
 
   validates_presence_of :id
   validates_presence_of :name
@@ -31,7 +31,7 @@ class Skill
   def initialize(attributes={})
     @id = attributes[:id]
     @name = attributes[:name]
-    @dependencies = attributes[:dependencies] || []
+    @dependency_skill_ids = attributes[:dependency_skill_ids] || []
   end
 
   def save
@@ -45,11 +45,17 @@ class Skill
     self.class.save
   end
 
+  def dependencies
+    dependency_skill_ids.map do |dependency_skill_id|
+      self.class.find(dependency_skill_id)
+    end
+  end
+
   def to_hash
     {
       id: @id,
       name: @name,
-      dependencies: @dependencies,
+      dependency_skill_ids: @dependency_skill_ids,
     }
   end
 
