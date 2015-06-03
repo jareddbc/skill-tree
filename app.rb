@@ -3,9 +3,7 @@ require 'sinatra'
 require Bundler.root + 'skill'
 
 configure do
-  set :root,   Bundler.root
-  set :views,  'editor/views'
-  set :public, 'editor/public'
+  set :root, Bundler.root
 end
 
 get '/' do

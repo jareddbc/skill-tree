@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+if [ -n $1 ] && [ "$1" = '-w' ]
+then
+  echo "watching for changes…"
+  watchify   -t coffeeify --extension=".coffee" js/app.coffee -o public/app.js
+else
+  echo "compiling javascript"
+  browserify -t coffeeify --extension=".coffee" js/app.coffee -o public/app.js
+fi
