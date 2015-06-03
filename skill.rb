@@ -10,8 +10,15 @@ class Skill
   end
 
   def self.save
+    # add some collection validations
     yaml = all.map(&:to_hash).to_yaml
     YAML_FILE_PATH.open('w'){|f| f.puts(yaml) }
+  end
+
+  def self.find(id)
+    self.all.find do |skill|
+      skill.id == id
+    end
   end
 
   include ActiveModel::Model
@@ -28,12 +35,13 @@ class Skill
   end
 
   def save
-    @all.push(self) unless @all.include?(self)
+    return false unless valid?
+    self.class.all.push(self) unless self.class.all.include?(self)
     self.class.save
   end
 
   def delete
-    @all.delete(self)
+    self.class.all.delete(self)
     self.class.save
   end
 
