@@ -1,6 +1,3 @@
-require 'yaml'
-require 'active_model'
-
 class Skill
 
   YAML_FILE_PATH = Bundler.root + 'skills.yaml'
@@ -69,6 +66,10 @@ class Skill
       name: @name,
       dependency_skill_ids: @dependency_skill_ids,
     }
+  end
+
+  def as_json(options={})
+    to_hash
   end
 
 
