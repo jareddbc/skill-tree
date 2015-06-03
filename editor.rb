@@ -31,7 +31,10 @@ __END__
         %input{type:'text', name:'name', value: skill.name}
       %label
         %div Depenencies:
-        %input{type:'text', name:'name', value: skill.name}
+        %select{multiple: true}
+          - @skills.each do |option|
+            %option{value:option.id, selected: skill.dependent_on?(option)}= option.name
+
 
 
 

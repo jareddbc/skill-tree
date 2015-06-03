@@ -51,6 +51,18 @@ class Skill
     end
   end
 
+  def dependent_on?(skill)
+    dependency_skill_ids.include?(skill.id)
+  end
+
+  def deep_dependencies
+    dependencies = self.dependencies
+    dependencies.each do |dependency|
+      dependencies += dependency.deep_dependencies
+    end
+    dependencies.uniq
+  end
+
   def to_hash
     {
       id: @id,
