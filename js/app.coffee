@@ -1,1 +1,2 @@
-alert 'coffeeeee'
+$ = require 'jquery'
+React = require 'react'
