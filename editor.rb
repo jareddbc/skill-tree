@@ -3,12 +3,13 @@ require 'sinatra'
 require Bundler.root + 'skill'
 
 configure do
-  set :root, Bundler.root
-  set :views, Bundler.root + 'editor/views'
+  set :root,   Bundler.root
+  set :views,  'editor/views'
+  set :public, 'editor/public'
 end
 
 get '/' do
-  haml :index
+  erb :index
 end
 
 get '/skills' do

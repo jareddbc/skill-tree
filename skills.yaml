@@ -1,26 +1,29 @@
 ---
 - :id: 1
   :name: describe a variable
-  :dependency_skill_ids: []
+  :prerequisite_skill_ids: []
+  :day_introduced: 
 - :id: 2
   :name: assign the value 5 to a varible named number_of_fish
-  :dependency_skill_ids:
-  - 1
+  :prerequisite_skill_ids: []
+  :day_introduced: 
 - :id: 3
   :name: use a variable
-  :dependency_skill_ids:
-  - 2
+  :prerequisite_skill_ids: []
+  :day_introduced: 
 - :id: 4
   :name: Add, subtract, multiply, and divide numbers
-  :dependency_skill_ids: []
+  :prerequisite_skill_ids: []
+  :day_introduced: 
 - :id: 5
   :name: Iterate over an array
-  :dependency_skill_ids: []
+  :prerequisite_skill_ids: []
+  :day_introduced: 
 - :id: 6
   :name: Describe
-  :dependency_skill_ids:
-  - 2
+  :prerequisite_skill_ids: []
+  :day_introduced: 
 - :id: 7
   :name: Write a ruby script that prints "Hello World"
-  :dependency_skill_ids:
-  - 2
+  :prerequisite_skill_ids: []
+  :day_introduced: 

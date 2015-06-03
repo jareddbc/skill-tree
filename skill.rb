@@ -1,3 +1,5 @@
+require 'active_model'
+
 class Skill
 
   YAML_FILE_PATH = Bundler.root + 'skills.yaml'
@@ -20,7 +22,11 @@ class Skill
 
   include ActiveModel::Model
 
-  attr_accessor :id, :name, :dependency_skill_ids
+  attr_accessor \
+    :id, 
+    :name, 
+    :prerequisite_skill_ids,
+    :day_introduced
 
   validates_presence_of :id
   validates_presence_of :name
@@ -28,7 +34,8 @@ class Skill
   def initialize(attributes={})
     @id = attributes[:id]
     @name = attributes[:name]
-    @dependency_skill_ids = attributes[:dependency_skill_ids] || []
+    @prerequisite_skill_ids = attributes[:prerequisite_skill_ids] || []
+    @day_introduced = attributes[:day_introduced]
   end
 
   def save
@@ -42,29 +49,30 @@ class Skill
     self.class.save
   end
 
-  def dependencies
-    dependency_skill_ids.map do |dependency_skill_id|
-      self.class.find(dependency_skill_id)
+  def prerequisites
+    prerequisite_skill_ids.map do |prerequisite_skill_id|
+      self.class.find(prerequisite_skill_id)
     end
   end
 
-  def dependent_on?(skill)
-    dependency_skill_ids.include?(skill.id)
+  def prerequisite_skill?(skill)
+    prerequisite_skill_ids.include?(skill.id)
   end
 
-  def deep_dependencies
-    dependencies = self.dependencies
-    dependencies.each do |dependency|
-      dependencies += dependency.deep_dependencies
+  def deep_prerequisites
+    prerequisites = self.prerequisites
+    prerequisites.each do |skill|
+      prerequisites += skill.deep_prerequisites
     end
-    dependencies.uniq
+    prerequisites.uniq
   end
 
   def to_hash
     {
       id: @id,
       name: @name,
-      dependency_skill_ids: @dependency_skill_ids,
+      prerequisite_skill_ids: @prerequisite_skill_ids,
+      day_introduced: @day_introduced,
     }
   end
 
