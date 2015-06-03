@@ -1,9 +1,11 @@
-require 'bundler'
-Bundler.setup
-
+require File.expand_path('../environment', __FILE__)
 require 'sinatra'
-
 require Bundler.root + 'skill'
+
+configure do
+  set :root, Bundler.root
+  set :views, Bundler.root + 'editor/views'
+end
 
 get '/' do
   @skills = Skill.all.sort_by(&:id)
