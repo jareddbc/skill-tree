@@ -14,6 +14,6 @@ end
 
 get '/skills' do
   content_type :json
-  Skill.all.to_json
+  Skill.read.to_json
 end
 

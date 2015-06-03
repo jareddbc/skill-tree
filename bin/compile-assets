@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+browserify -t coffeeify --extension=".coffee" js/app.coffee

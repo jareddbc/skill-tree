@@ -4,14 +4,21 @@ class Skill
 
   YAML_FILE_PATH = Bundler.root + 'skills.yaml'
 
+  def self.read
+    YAML.load_file(YAML_FILE_PATH)
+  end
+
+  def self.write(skills)
+    YAML_FILE_PATH.open('w'){|f| f.puts(skills.to_yaml) }
+  end
+
   def self.all
-    @all ||= YAML.load_file(YAML_FILE_PATH).map(&method(:new))
+    @all ||= read.map(&method(:new))
   end
 
   def self.save
     # add some collection validations
-    yaml = all.map(&:to_hash).to_yaml
-    YAML_FILE_PATH.open('w'){|f| f.puts(yaml) }
+    write all.map(&:to_hash)
   end
 
   def self.find(id)
