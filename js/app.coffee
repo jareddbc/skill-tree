@@ -14,6 +14,12 @@ getState = ->
 
 App = component
 
+  childContextTypes:
+    path: React.PropTypes.object
+
+  getChildContext: ->
+    path: path
+
   getInitialState: ->
     getState()
 

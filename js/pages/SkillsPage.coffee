@@ -1,11 +1,14 @@
+skills = require '../skills'
+component = require '../component'
+
+Layout = require '../components/Layout'
 SkillsList = require '../components/SkillsList'
-{div, h1} = require '../DOM'
+{div, h3} = require '../DOM'
 
-module.exports = (props) ->
+module.exports = component
 
-
-
-  div(null, 
-    h1('Skills page here'),
-    SkillsList(),
-  )
+  render: ->
+    Layout(null, 
+      h3(null, 'Skills:'),
+      SkillsList(),
+    )
