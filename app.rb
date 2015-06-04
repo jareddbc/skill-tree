@@ -6,12 +6,11 @@ configure do
   set :root, Bundler.root
 end
 
-get '/' do
-  erb :index
-end
-
-get '/skills' do
+get '/skills.json' do
   content_type :json
   Skill.read.to_json
 end
 
+get '*' do
+  erb :index
+end

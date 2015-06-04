@@ -1,36 +1,48 @@
 $ = require 'jquery'
 React = require 'react'
 component = require './component'
+router = require('./router')
+Path = require 'Path'
+
 {div} = require './DOM'
 
-skills = require './skills'
-window.skills = skills # DEBUG
+path = Path(window)
 
-Skills = component
+getState = ->
+  path: path
+  route: router(path)
+
+App = component
 
   getInitialState: ->
-    skills: null
+    getState()
+
+  onChange: ->
+    @setState getState()
 
   componentDidMount: ->
-    skills.load().then(
-      (skills) => @setState skills: skills,
-      (error) => @setState error: error,
-    )
+    # session.on('change', @onChange)
+    path.on('change', @onChange)
 
+  componentWillUnmount: ->
+    # session.removeListener('change', @onChange)
+    path.removeListener('change', @onChange)
+  
   render: ->
-    return div(null, "Failed to load skills: #{@state.error}") if @state.error
-    
-    return div(null, 'loading...') unless @state.skills?
+    console.log('RENDERING:', state: @state)
 
-    skills = @state.skills.map (skill, index) ->
-      Skill(key: index, skill: skill)
-    
-    div(null, skills)
-
-Skill = component
-  render: ->
-    div(null, @props.skill.name)
+    route = @state.route
+    Page = route.options.to
+    Page(route: route)
 
 
 $ ->
-  React.render(Skills(), document.body)
+  React.render(App(), document.body)
+
+
+
+
+# FOR DEBUG
+window.DEBUG_SKILLS = require './skills'
+window.DEBUG_PATH = path
+window.DEBUG_ROUTER = router
